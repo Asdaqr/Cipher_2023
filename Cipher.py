@@ -1,10 +1,12 @@
 import string
 
 
-# TODO: Finish the naming system and improve efficiency: LRU cache
+# TODO: Finish the naming system
 
 class Cipher:
-    """ For a normal cipher that maps alphabet -> a new one eg. a -> u"""
+    """Allows encryption and decryption of a mono-alphabetic cipher whose key is known.
+    Key is given as a string for the argument, and it assumed that the capital and lowercase letters
+    have the same mapping."""
 
     def __init__(self, cipher_text: str):
 
