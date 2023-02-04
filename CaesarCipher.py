@@ -12,22 +12,22 @@ class CaesarCipher:
         if shift is not None:
             self.key = shift
         else:
-            self.autodecipher(self.get_text())
+            self.auto_decipher(self.get_text())
 
     @staticmethod
     def get_text() -> str:
         text = input("Enter text to decipher")
         return text
 
-    def autodecipher(self, text: str) -> bool:
+    def auto_decipher(self, text: str) -> bool:
         key = None
         for i in range(1, 26):
             # self.cipher(text, i, False)
             pass
 
         while True:
-            isCorrect = input(f"Deciphered Text: \n {text} \n Does this look correct?(y/n): ")
-            match isCorrect:
+            is_correct = input(f"Deciphered Text: \n {text} \n Does this look correct?(y/n): ")
+            match is_correct:
                 case 'y':
                     self.key = key
                     return True
