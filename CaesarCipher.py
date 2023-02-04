@@ -3,8 +3,10 @@ from typing import Optional
 from functools import cache
 
 
-# TODO
+# TODO: finish auto-cipher & cipher
 class CaesarCipher:
+    """Encrypts and decrypts caesar ciphers. Allows for auto-decrypting.
+    For more information see https://www.sciencedirect.com/topics/computer-science/caesar-cipher"""
     def __init__(self, shift: Optional[int] = None):
         self.key = None
         if shift is not None:
@@ -37,9 +39,18 @@ class CaesarCipher:
 
     @cache
     def common_words(self) -> set:
-        #TODO: code common words func
-        common_words = {}
+        common_words = set()
         with open('common-words.txt', 'r') as f:
-            pass
-
+            for line in f:
+                common_words.add(line.strip())
         return common_words
+
+    def cipher(self, key: int = None, cipher: bool = True):
+        if key is None:
+            key = self.key
+
+        match cipher:
+            case True:
+                pass
+            case False:
+                pass

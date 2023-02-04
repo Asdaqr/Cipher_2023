@@ -4,7 +4,7 @@ import string
 # TODO: Finish the naming system and improve efficiency: LRU cache
 
 class Cipher:
-    """TO BE LISTED"""
+    """ For a normal cipher that maps alphabet -> a new one eg. a -> u"""
 
     def __init__(self, cipher_text: str):
 
@@ -24,7 +24,9 @@ class Cipher:
         self.decipher_key = {i: j for j, i in self.key.items()}
 
     def cipher(self, text: str, cipher: bool = True) -> str:
+        """maps text given key, or reverses mapping based on cipher[bool]"""
         key = None
+        # decides key to use
         match cipher:
             case True:
                 key = self.key
@@ -33,6 +35,7 @@ class Cipher:
 
         translated_text = ""
         for letter in text:
+            # make no changes to the text if isn't in key
             if letter in key:
                 translated_text += key[letter]
             else:
