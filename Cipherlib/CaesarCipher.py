@@ -21,12 +21,14 @@ class CaesarCipher:
 
     def auto_decipher(self, text: str) -> bool:
         key = None
+        guess = None
         for i in range(1, 26):
             # self.cipher(text, i, False)
             pass
 
         while True:
-            is_correct = input(f"Deciphered Text: \n {text} \n Does this look correct?(y/n): ")
+            # while loop asks user if the guess is correct
+            is_correct = input(f"Deciphered Text: \n {guess} \n Does this look correct?(y/n): ")
             match is_correct:
                 case 'y':
                     self.key = key
@@ -35,7 +37,7 @@ class CaesarCipher:
                     print("Sorry, we couldn't decipher it.")
                     return False
                 case _:
-                    print("Unrecognized value")
+                    print("Unrecognized value. Please enter y/n")
 
     @cache
     def common_words(self) -> set:
