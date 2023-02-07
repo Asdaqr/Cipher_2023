@@ -1,9 +1,9 @@
-import string
 from typing import Optional
 from functools import cache
 
 
-# TODO: finish auto-cipher
+# TODO: fix the handling of common-words.txt to not depend on location of Cipherlib
+
 class CaesarCipher:
     """Encrypts and decrypts caesar ciphers. Allows for auto-decrypting.
     For more information see https://www.sciencedirect.com/topics/computer-science/caesar-cipher"""
@@ -19,8 +19,34 @@ class CaesarCipher:
 
     @staticmethod
     def get_text() -> str:
-        text = input("Enter text to decipher")
+        text = input("Enter text to decipher: ")
         return text
+
+    @staticmethod
+    def map_char(char: str, shift: int):
+        if char.isalpha():
+            if char.isupper():
+                offset = 65
+            else:
+                offset = 97
+            ascii_val = ord(char) + shift
+            if ascii_val < offset:
+                ascii_val += 26
+            elif ascii_val > offset + 25:
+                ascii_val -= 26
+            translated_char = chr(ascii_val)
+            return translated_char
+
+        else:
+            return char
+
+    @cache
+    def common_words(self) -> set:
+        common_words = set()
+        with open('./Cipherlib/common-words.txt', 'r') as f:
+            for line in f:
+                common_words.add(line.strip())
+        return common_words
 
     def auto_decipher(self, text: str) -> bool:
         self.text = text
@@ -36,7 +62,7 @@ class CaesarCipher:
             if word_count > max_words:
                 key = i
                 max_words = word_count
-        guess = self.cipher(-1 * key)
+        guess = self.cipher(key, False)
 
         while True:
             # while loop asks user if the guess is correct
@@ -44,37 +70,13 @@ class CaesarCipher:
             match is_correct:
                 case 'y':
                     self.key = key
+
                     return True
                 case 'n':
                     print("Sorry, we couldn't decipher it.")
                     return False
                 case _:
                     print("Unrecognized value. Please enter y/n")
-
-    @staticmethod
-    def map_char(char: str, shift: int):
-        if char.isalpha():
-            if char.isupper():
-                offset = 97
-            else:
-                offset = 65
-            ascii_val = ord(char) + shift
-            if ascii_val < offset:
-                ascii_val += 26
-            elif ascii_val > offset + 25:
-                ascii_val -= 26
-            return chr(ascii_val)
-
-        else:
-            return char
-
-    @cache
-    def common_words(self) -> set:
-        common_words = set()
-        with open('common-words.txt', 'r') as f:
-            for line in f:
-                common_words.add(line.strip())
-        return common_words
 
     def cipher(self, key: int = None, cipher: bool = True) -> str:
         shift = None
@@ -88,7 +90,13 @@ class CaesarCipher:
                 shift = -1 * key
 
         translated_text = ''
-        for letter in self.text():
+        for letter in self.text:
             translated_text += self.map_char(letter, shift)
 
         return translated_text
+
+    def get_curr_text(self):
+        return self.text
+
+    def get_key(self):
+        return self.key

@@ -47,7 +47,7 @@ class Cipher:
         return translated_text
 
     @staticmethod
-    def has_duplicate(text:str) -> bool:
+    def has_duplicate(text: str) -> bool:
         seen = set()
         for letter in text:
             if letter in seen:
