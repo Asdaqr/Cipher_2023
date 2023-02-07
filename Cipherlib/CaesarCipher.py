@@ -11,6 +11,7 @@ class CaesarCipher:
     def __init__(self, shift: Optional[int] = None):
         self.text = None
         self.key = None
+        self.words_list = self.common_words()
         if shift is not None:
             self.key = shift
         else:
@@ -22,12 +23,20 @@ class CaesarCipher:
         return text
 
     def auto_decipher(self, text: str) -> bool:
-        key = None
-        guess = None
         self.text = text
+        max_words = 0
+        key = 0
         for i in range(1, 26):
-            # self.cipher(text, i, False)
-            pass
+            word_count = 0
+            possible_solution = self.cipher(i, False)
+            solution_list = possible_solution.strip(".").split()
+            for word in solution_list:
+                if word in self.words_list:
+                    word_count += 1
+            if word_count > max_words:
+                key = i
+                max_words = word_count
+        guess = self.cipher(-1 * key)
 
         while True:
             # while loop asks user if the guess is correct
@@ -67,7 +76,7 @@ class CaesarCipher:
                 common_words.add(line.strip())
         return common_words
 
-    def cipher(self, key: int = None, cipher: bool = True):
+    def cipher(self, key: int = None, cipher: bool = True) -> str:
         shift = None
         if key is None:
             key = self.key
@@ -81,3 +90,5 @@ class CaesarCipher:
         translated_text = ''
         for letter in self.text():
             translated_text += self.map_char(letter, shift)
+
+        return translated_text

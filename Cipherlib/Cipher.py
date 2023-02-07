@@ -10,6 +10,8 @@ class Cipher:
 
     def __init__(self, cipher_text: str):
 
+        if len(cipher_text) != 25 or self.has_duplicate(cipher_text):
+            raise ValueError("Duplicate value received.")
         self.cipher_text = cipher_text
 
         ALPHA_LEN = 25
@@ -41,5 +43,14 @@ class Cipher:
             if letter in key:
                 translated_text += key[letter]
             else:
-                translated_text += key[letter]
+                translated_text += letter
         return translated_text
+
+    @staticmethod
+    def has_duplicate(text:str) -> bool:
+        seen = set()
+        for letter in text:
+            if letter in seen:
+                return True
+            else:
+                seen.add(letter)
