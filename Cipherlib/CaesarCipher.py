@@ -1,8 +1,7 @@
 from typing import Optional
 from functools import cache
+from os import path
 
-
-# TODO: fix the handling of common-words.txt to not depend on location of Cipherlib
 
 class CaesarCipher:
     """Encrypts and decrypts caesar ciphers. Allows for auto-decrypting.
@@ -43,7 +42,8 @@ class CaesarCipher:
     @cache
     def common_words(self) -> set:
         common_words = set()
-        with open('./Cipherlib/common-words.txt', 'r') as f:
+        location = path.dirname(__file__) + "\\common-words.txt"
+        with open(location, 'r') as f:
             for line in f:
                 common_words.add(line.strip())
         return common_words

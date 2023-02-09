@@ -2,6 +2,6 @@ from Cipherlib import CaesarCipher
 
 # TODO: Finish the main script
 
-NewCipher = CaesarCipher.CaesarCipher()
+NewCipher = CaesarCipher.CaesarCipher(2)
 
-print(f"Caesar Cipher list is{NewCipher.words_list}")
+
