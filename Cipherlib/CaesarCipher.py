@@ -66,8 +66,8 @@ class CaesarCipher:
 
         while True:
             # while loop asks user if the guess is correct
-            is_correct = input(f"Deciphered Text: \n {guess} \n Does this look correct?(y/n): ")
-            match is_correct:
+            is_correct = input(f"Deciphered Text: \n {guess} \n Does this look correct?(y/n): ")[0]
+            match is_correct.lower():
                 case 'y':
                     self.key = key
 
