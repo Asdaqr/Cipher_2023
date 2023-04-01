@@ -41,11 +41,9 @@ class CaesarCipher:
 
     @cache
     def common_words(self) -> set:
-        common_words = set()
         location = path.dirname(__file__) + "\\common-words.txt"
         with open(location, 'r') as f:
-            for line in f:
-                common_words.add(line.strip())
+            common_words = {line.strip() for line in f}
         return common_words
 
     def auto_decipher(self, text: str) -> bool:

@@ -2,6 +2,6 @@ from Cipherlib import CaesarCipher
 
 # TODO: Finish the main script
 
-NewCipher = CaesarCipher.CaesarCipher(2)
+NewCipher = CaesarCipher.CaesarCipher()
 
 
