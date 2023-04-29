@@ -91,6 +91,8 @@ class CaesarCipher:
         for letter in self.text:
             translated_text += self.map_char(letter, shift)
 
+        if cipher:
+            self.text = translated_text
         return translated_text
 
     def get_curr_text(self):
